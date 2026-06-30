@@ -1,4 +1,5 @@
 @CN_ACESSARLOGIN
+  @TS0001
 Feature: Login Swag Labs
 
   Scenario: Login com sucesso

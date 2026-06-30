@@ -22,7 +22,7 @@ public class BasePage {
         driver.get(url);
     }
 
-    protected void validateObject(WebElement element, String descriptionToAction) {
+    protected void validateObject(WebElement element, String descriptionToAction, boolean b) {
         System.out.println("VALIDAÇÃO: " + descriptionToAction);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
