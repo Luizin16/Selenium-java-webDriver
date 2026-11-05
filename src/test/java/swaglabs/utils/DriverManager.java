@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.Map;
+
 /**
  * Cria e encerra o WebDriver.
  * O Selenium Manager (Selenium 4.6+) baixa o chromedriver certo sozinho.
@@ -19,7 +21,13 @@ public final class DriverManager {
     public static WebDriver getDriver() {
         if (driver == null) {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--window-size=1920,1080", "--incognito",
+                    "--disable-features=PasswordLeakDetection,PasswordManagerOnboarding");
+            // Evita o pop-up "Altere sua senha" do Chrome, que bloqueia os cliques após o login
+            options.setExperimentalOption("prefs", Map.of(
+                    "credentials_enable_service", false,
+                    "profile.password_manager_enabled", false,
+                    "profile.password_manager_leak_detection", false));
 
             if (isHeadless()) {
                 options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
