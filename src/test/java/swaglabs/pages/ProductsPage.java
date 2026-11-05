@@ -12,8 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class ProductsPage extends ProductsAttributes {
 
     public ProductsPage validarPaginaProdutos() {
-        validateObject(titleProducts, "Validar título da página de produtos");
-        assertEquals("Products", getText(titleProducts));
+        waitForPage("inventory.html", "Products", "Validar página de produtos");
         return this;
     }
 
@@ -39,7 +38,7 @@ public class ProductsPage extends ProductsAttributes {
 
     public ProductsPage adicionarProduto(String nomeProduto) {
         String id = "add-to-cart-" + nomeProduto.toLowerCase().replace(" ", "-");
-        click(driver.findElement(By.cssSelector("[data-test='" + id + "']")), "Adicionar ao carrinho: " + nomeProduto);
+        clickBy(By.cssSelector("[data-test='" + id + "']"), "Adicionar ao carrinho: " + nomeProduto);
         return this;
     }
 

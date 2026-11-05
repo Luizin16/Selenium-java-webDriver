@@ -8,9 +8,6 @@ import java.util.List;
 
 public class ProductsAttributes extends BasePage {
 
-    @FindBy(css = "[data-test='title']")
-    protected WebElement titleProducts;
-
     @FindBy(css = "[data-test='product-sort-container']")
     protected WebElement dropdownOrdenacao;
 

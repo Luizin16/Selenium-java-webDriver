@@ -1,5 +1,6 @@
 package swaglabs.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -57,6 +58,18 @@ public class BasePage {
         log("AÇÃO", descricao);
         wait.until(ExpectedConditions.visibilityOf(element));
         new Select(element).selectByValue(value);
+    }
+
+    protected void clickBy(By locator, String descricao) {
+        log("AÇÃO", descricao);
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+    }
+
+    /** Espera a página trocar de verdade: aguarda a URL e o título esperados. */
+    protected void waitForPage(String trechoUrl, String tituloEsperado, String descricao) {
+        log("VALIDAÇÃO", descricao);
+        wait.until(ExpectedConditions.urlContains(trechoUrl));
+        wait.until(ExpectedConditions.textToBe(By.cssSelector("[data-test='title']"), tituloEsperado));
     }
 
     protected String getText(WebElement element) {

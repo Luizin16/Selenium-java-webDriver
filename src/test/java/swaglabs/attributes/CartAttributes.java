@@ -8,9 +8,6 @@ import java.util.List;
 
 public class CartAttributes extends BasePage {
 
-    @FindBy(css = "[data-test='title']")
-    protected WebElement titleCart;
-
     @FindBy(css = "[data-test='inventory-item']")
     protected List<WebElement> itensCarrinho;
 

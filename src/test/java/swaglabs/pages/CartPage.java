@@ -10,8 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class CartPage extends CartAttributes {
 
     public CartPage validarPaginaCarrinho() {
-        validateObject(titleCart, "Validar página do carrinho");
-        assertEquals("Your Cart", getText(titleCart));
+        waitForPage("cart.html", "Your Cart", "Validar página do carrinho");
         return this;
     }
 

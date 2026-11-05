@@ -4,6 +4,7 @@ import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import swaglabs.pages.LoginPage;
+import swaglabs.pages.ProductsPage;
 
 public class LoginSteps {
 
@@ -20,6 +21,7 @@ public class LoginSteps {
     @Dado("que estou logado com o usuario {string}")
     public void queEstouLogado(String usuario) {
         new LoginPage().acessarSwagLabs().realizarLogin(usuario, "secret_sauce");
+        new ProductsPage().validarPaginaProdutos();
     }
 
     @Então("devo ver a mensagem de erro {string}")
