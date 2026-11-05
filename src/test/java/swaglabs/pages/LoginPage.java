@@ -1,52 +1,38 @@
 package swaglabs.pages;
 
-import org.openqa.selenium.support.PageFactory;
 import swaglabs.attributes.LoginAttributes;
+
+import static org.junit.Assert.assertEquals;
 
 public class LoginPage extends LoginAttributes {
 
-    public LoginPage() {
-        PageFactory.initElements(driver, this);
-    }
-
     public LoginPage acessarSwagLabs() {
-        navigateTo("https://www.saucedemo.com/", "Acessar sistema Swag Labs");
-        fixedWait(4);
-        validateObject(inputUsername, "Validar campo usuário na tela de login", true);
-
+        navigateTo(BASE_URL, "Acessar sistema Swag Labs");
+        validateObject(inputUsername, "Validar campo usuário na tela de login");
         return this;
     }
 
     public LoginPage preencherUsuario(String usuario) {
-        setText(inputUsername, usuario, "Preencher campo usuário", true);
-        fixedWait(4);
-
+        setText(inputUsername, usuario, "Preencher campo usuário");
         return this;
     }
 
     public LoginPage preencherSenha(String senha) {
-        setText(inputPassword, senha, "Preencher campo senha", true);
-        fixedWait(4);
-
+        setText(inputPassword, senha, "Preencher campo senha");
         return this;
     }
 
-    public ProductsPage clicarLogin() {
-        click(buttonLogin, "Clicar no botão Login", true);
-        fixedWait(5);
-
-        return new ProductsPage();
+    public void clicarLogin() {
+        click(buttonLogin, "Clicar no botão Login");
     }
 
-    public ProductsPage realizarLogin(String usuario, String senha) {
-        preencherUsuario(usuario);
-        preencherSenha(senha);
-        return clicarLogin();
+    public void realizarLogin(String usuario, String senha) {
+        preencherUsuario(usuario).preencherSenha(senha).clicarLogin();
     }
 
-    public LoginPage validarMensagemErro() {
-        validateObject(messageError, "Validar mensagem de erro no login", true);
-
+    public LoginPage validarMensagemErro(String mensagemEsperada) {
+        validateObject(messageError, "Validar mensagem de erro no login");
+        assertEquals(mensagemEsperada, getText(messageError));
         return this;
     }
 }

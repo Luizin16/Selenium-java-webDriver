@@ -1,21 +1,31 @@
 package swaglabs.utils;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.time.Duration;
+/**
+ * Cria e encerra o WebDriver.
+ * O Selenium Manager (Selenium 4.6+) baixa o chromedriver certo sozinho.
+ * Rode com -Dheadless=true (ou na CI) para executar sem abrir o navegador.
+ */
+public final class DriverManager {
 
-public class DriverManager {
+    private static WebDriver driver;
 
-    public static WebDriver driver;
+    private DriverManager() {
+    }
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--window-size=1920,1080");
+
+            if (isHeadless()) {
+                options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+            }
+
+            driver = new ChromeDriver(options);
         }
         return driver;
     }
@@ -25,5 +35,10 @@ public class DriverManager {
             driver.quit();
             driver = null;
         }
+    }
+
+    private static boolean isHeadless() {
+        return Boolean.parseBoolean(System.getProperty("headless", "false"))
+                || System.getenv("CI") != null;
     }
 }
